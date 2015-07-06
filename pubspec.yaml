@@ -1,0 +1,13 @@
+name: react_variadic_perf
+description: Performance benchmarking for new variadic element construction in react-dart
+version: 0.0.1
+dependencies:
+  react:
+    git:
+      url: git@github.com:trentgrover-wf/react-dart.git
+      ref: killChildWarning
+  benchmark_harness: ">=1.0.0 <2.0.0"
+transformers:
+  - $dart2js:
+      minify: true
+      environment: { PROD: "true" }
