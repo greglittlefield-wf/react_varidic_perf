@@ -23,12 +23,17 @@
         tr.divider {
             height: 10px;
         }
+
+        .benchmark-complete .running-message {
+            display: none;
+        }
     </style>
 
     <!-- Make sure to use prod here when testing performance -->
     <script src="packages/react/react_prod.js"></script>
 </head>
 <body>
+    <h1 class="running-message">Running tests (this may take a while)...</h1>
     <!-- app scripts -->
     <script type="application/dart" src="web_benchmark.dart"></script>
     <script src="packages/browser/dart.js"></script>

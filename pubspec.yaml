@@ -5,7 +5,7 @@ dependencies:
   react:
     git:
       url: git@github.com:trentgrover-wf/react-dart.git
-      ref: killChildWarning
+      ref: ff8f065742ddea1c39527a82abe669a813310547
   benchmark_harness: ">=1.0.0 <2.0.0"
 transformers:
   - $dart2js:

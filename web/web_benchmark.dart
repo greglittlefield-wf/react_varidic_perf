@@ -25,36 +25,41 @@ class HtmlEmitter implements ScoreEmitter {
   }
 }
 
+
 class ReactListOneChild extends BenchmarkBase {
-  const ReactListOneChild({ScoreEmitter emitter}) : super('React children as list: 1 child', emitter: emitter);
+  final Function componentFactory;
+  ReactListOneChild(String factoryName, this.componentFactory, {ScoreEmitter emitter}) : super('($factoryName) React children as list: 1 child', emitter: emitter);
   void run() {
-    react.div({}, [
+    componentFactory({}, [
       react.div({}, '1')
     ]);
   }
 }
 class ReactVariadicOneChild extends BenchmarkBase {
-  const ReactVariadicOneChild({ScoreEmitter emitter}) : super('React children as variadic: 1 child', emitter: emitter);
+  final Function componentFactory;
+  ReactVariadicOneChild(String factoryName, this.componentFactory, {ScoreEmitter emitter}) : super('($factoryName) React children as variadic: 1 child', emitter: emitter);
   void run() {
-    react.div({},
+    componentFactory({},
       react.div({}, '1')
     );
   }
 }
 
 class ReactListTwoChildren extends BenchmarkBase {
-  const ReactListTwoChildren({ScoreEmitter emitter}) : super('React children as list: 2 children', emitter: emitter);
+  final Function componentFactory;
+  ReactListTwoChildren(String factoryName, this.componentFactory, {ScoreEmitter emitter}) : super('($factoryName) React children as list: 2 children', emitter: emitter);
   void run() {
-    react.div({}, [
+    componentFactory({}, [
       react.div({}, '1'),
       react.div({}, '2')
     ]);
   }
 }
 class ReactVariadicTwoChildren extends BenchmarkBase {
-  const ReactVariadicTwoChildren({ScoreEmitter emitter}) : super('React children as variadic: 2 children', emitter: emitter);
+  final Function componentFactory;
+  ReactVariadicTwoChildren(String factoryName, this.componentFactory, {ScoreEmitter emitter}) : super('($factoryName) React children as variadic: 2 children', emitter: emitter);
   void run() {
-    react.div({},
+    componentFactory({},
       react.div({}, '1'),
       react.div({}, '2')
     );
@@ -63,9 +68,10 @@ class ReactVariadicTwoChildren extends BenchmarkBase {
 
 
 class ReactListThreeChildren extends BenchmarkBase {
-  const ReactListThreeChildren({ScoreEmitter emitter}) : super('React children as list: 3 children', emitter: emitter);
+  final Function componentFactory;
+  ReactListThreeChildren(String factoryName, this.componentFactory, {ScoreEmitter emitter}) : super('($factoryName) React children as list: 3 children', emitter: emitter);
   void run() {
-    react.div({}, [
+    componentFactory({}, [
       react.div({}, '1'),
       react.div({}, '2'),
       react.div({}, '3')
@@ -73,9 +79,10 @@ class ReactListThreeChildren extends BenchmarkBase {
   }
 }
 class ReactVariadicThreeChildren extends BenchmarkBase {
-  const ReactVariadicThreeChildren({ScoreEmitter emitter}) : super('React children as variadic: 3 children', emitter: emitter);
+  final Function componentFactory;
+  ReactVariadicThreeChildren(String factoryName, this.componentFactory, {ScoreEmitter emitter}) : super('($factoryName) React children as variadic: 3 children', emitter: emitter);
   void run() {
-    react.div({},
+    componentFactory({},
       react.div({}, '1'),
       react.div({}, '2'),
       react.div({}, '3')
@@ -85,9 +92,10 @@ class ReactVariadicThreeChildren extends BenchmarkBase {
 
 
 class ReactListFourChildren extends BenchmarkBase {
-  const ReactListFourChildren({ScoreEmitter emitter}) : super('React children as list: 4 children', emitter: emitter);
+  final Function componentFactory;
+  ReactListFourChildren(String factoryName, this.componentFactory, {ScoreEmitter emitter}) : super('($factoryName) React children as list: 4 children', emitter: emitter);
   void run() {
-    react.div({}, [
+    componentFactory({}, [
       react.div({}, '1'),
       react.div({}, '2'),
       react.div({}, '3'),
@@ -96,9 +104,10 @@ class ReactListFourChildren extends BenchmarkBase {
   }
 }
 class ReactVariadicFourChildren extends BenchmarkBase {
-  const ReactVariadicFourChildren({ScoreEmitter emitter}) : super('React children as variadic: 4 children', emitter: emitter);
+  final Function componentFactory;
+  ReactVariadicFourChildren(String factoryName, this.componentFactory, {ScoreEmitter emitter}) : super('($factoryName) React children as variadic: 4 children', emitter: emitter);
   void run() {
-    react.div({},
+    componentFactory({},
       react.div({}, '1'),
       react.div({}, '2'),
       react.div({}, '3'),
@@ -106,6 +115,13 @@ class ReactVariadicFourChildren extends BenchmarkBase {
     );
   }
 }
+
+
+Function CustomComponent = react.registerComponent(() => new _CustomComponent());
+class _CustomComponent extends react.Component {
+  render() => react.div({}, props['children']);
+}
+
 
 // Main function runs the benchmark.
 main() async {
@@ -130,21 +146,45 @@ main() async {
 
   emitter.addDivider();
 
-  await new ReactListOneChild(emitter: emitter).report();
-  await new ReactVariadicOneChild(emitter: emitter).report();
+  await new ReactListOneChild('react.div', react.div, emitter: emitter).report();
+  await new ReactVariadicOneChild('react.div', react.div, emitter: emitter).report();
 
   emitter.addDivider();
 
-  await new ReactListTwoChildren(emitter: emitter).report();
-  await new ReactVariadicTwoChildren(emitter: emitter).report();
+  await new ReactListTwoChildren('react.div', react.div, emitter: emitter).report();
+  await new ReactVariadicTwoChildren('react.div', react.div, emitter: emitter).report();
 
   emitter.addDivider();
 
-  await new ReactListThreeChildren(emitter: emitter).report();
-  await new ReactVariadicThreeChildren(emitter: emitter).report();
+  await new ReactListThreeChildren('react.div', react.div, emitter: emitter).report();
+  await new ReactVariadicThreeChildren('react.div', react.div, emitter: emitter).report();
 
   emitter.addDivider();
 
-  await new ReactListFourChildren(emitter: emitter).report();
-  await new ReactVariadicFourChildren(emitter: emitter).report();
+  await new ReactListFourChildren('react.div', react.div, emitter: emitter).report();
+  await new ReactVariadicFourChildren('react.div', react.div, emitter: emitter).report();
+
+  emitter.addDivider();
+  emitter.addDivider();
+
+  await new ReactListOneChild('CustomComponent', CustomComponent, emitter: emitter).report();
+  await new ReactVariadicOneChild('CustomComponent', CustomComponent, emitter: emitter).report();
+
+  emitter.addDivider();
+
+  await new ReactListTwoChildren('CustomComponent', CustomComponent, emitter: emitter).report();
+  await new ReactVariadicTwoChildren('CustomComponent', CustomComponent, emitter: emitter).report();
+
+  emitter.addDivider();
+
+  await new ReactListThreeChildren('CustomComponent', CustomComponent, emitter: emitter).report();
+  await new ReactVariadicThreeChildren('CustomComponent', CustomComponent, emitter: emitter).report();
+
+  emitter.addDivider();
+
+  await new ReactListFourChildren('CustomComponent', CustomComponent, emitter: emitter).report();
+  await new ReactVariadicFourChildren('CustomComponent', CustomComponent, emitter: emitter).report();
+
+
+  document.body.classes.add('benchmark-complete');
 }

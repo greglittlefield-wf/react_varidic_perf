@@ -19,8 +19,8 @@ packages:
     version: "0.18.2"
   react:
     description:
-      ref: killChildWarning
-      resolved-ref: "4ea46afa89481772a980677a8b71236b0c4b17c6"
+      ref: ff8f065742ddea1c39527a82abe669a813310547
+      resolved-ref: ff8f065742ddea1c39527a82abe669a813310547
       url: "git@github.com:trentgrover-wf/react-dart.git"
     source: git
-    version: "0.7.0"
+    version: "0.7.1"
